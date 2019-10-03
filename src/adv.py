@@ -72,8 +72,6 @@ def get_player():
         user_input = input("player: name" + " \n> ")
     except TypeError:
         return -1
-    
-    
     return user_input
 
 
@@ -81,7 +79,7 @@ def get_player():
 def get_input(valid_directions):
     user_input = ""
     try:
-        user_input = input(valid_directions+ " | q: quit" + "\n> ")
+        user_input = input(valid_directions + "\n> ")
     except TypeError:
         return -1
     return user_input
@@ -103,7 +101,7 @@ def get_valid_directions(room):
     if room.w_to != None:
         valid_directions +=  "w: west"
 
-    return valid_directions
+    return valid_directions + " | q: quit"
 
 
 # get valid path directions from valid_direction string
@@ -116,18 +114,27 @@ def get_path(valid_directions):
 def adv_game():
     player_name = get_player()
     player = Player(player_name, room['outside'])
+    
+    
     current_room = player.current_room
-
     valid_directions = get_valid_directions(current_room)
-    print(valid_directions)
+    get_input(valid_directions)
 
-    # while True:
-    #     user_input = get_input()
-    #     if user_input == 'q':
-    #         break
-    #     elif "nsewq".find(user_input) == -1:
-    #         print("Error, please try again")
-    #         continue
+    while True:
+        current_room = player.current_room
+        valid_directions = get_valid_directions(current_room)
+        user_input = get_input(valid_directions)
+        
+        if valid_directions.find(user_input) == -1:
+            print("Error, please try again")
+            continue
+        elif user_input == 'q':
+            print("Thank you for playing!")
+            break
+        else:
+            continue
+
+
     #     elif user_input == 'n': 
     #         print(user_input)
     #     elif user_input == 's':
