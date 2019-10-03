@@ -103,6 +103,23 @@ def get_valid_directions(room):
 
     return valid_directions + " | q: quit"
 
+def create_room_dir_str(room):
+    valid_directions = ""
+
+    if room.n_to != None:
+        valid_directions +=  "n"
+
+    if room.s_to != None:
+        valid_directions +=  "s"
+
+    if room.e_to != None:
+        valid_directions +=  "e"
+
+    if room.w_to != None:
+        valid_directions +=  "w"
+
+    return valid_directions + "q"
+
 
 # get valid path directions from valid_direction string
 def get_path(valid_directions):
@@ -114,18 +131,13 @@ def get_path(valid_directions):
 def adv_game():
     player_name = get_player()
     player = Player(player_name, room['outside'])
-    
-    
-    current_room = player.current_room
-    valid_directions = get_valid_directions(current_room)
-    get_input(valid_directions)
 
     while True:
         current_room = player.current_room
         valid_directions = get_valid_directions(current_room)
         user_input = get_input(valid_directions)
         
-        if valid_directions.find(user_input) == -1:
+        if create_room_dir_str(current_room).find(user_input) == -1:
             print("Error, please try again")
             continue
         elif user_input == 'q':
