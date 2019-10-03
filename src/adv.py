@@ -1,7 +1,9 @@
 from room import Room
+from player import Player
+
+
 
 # Declare all the rooms
-
 room = {
     'outside':  Room("Outside Cave Entrance", "North of you, the cave mount beckons"),
 
@@ -11,16 +13,16 @@ room = {
                                  ),
     
     'overlook': Room("Grand Overlook", """
-                                        A steep cliff appears before you, falling into the darkness. 
-                                        Ahead to the north, a light flickers in the distance, 
-                                        but there is no way across the chasm."""
+                                            A steep cliff appears before you, falling into the darkness. 
+                                            Ahead to the north, a light flickers in the distance, 
+                                            but there is no way across the chasm."""
                                         ),
-    
+
     'narrow':   Room("Narrow Passage", """
-                                        The narrow passage bends here from west to north.
-                                        The smell of gold permeates the air."""
+                                            The narrow passage bends here from west to north.
+                                            The smell of gold permeates the air."""
                                         ),
-    
+
     'treasure': Room("Treasure Chamber", """
                                             You've found the long-lost treasure chamber! 
                                             Sadly, it has already been completely emptied by earlier adventurers. 
@@ -69,8 +71,22 @@ def get_input():
     return user_input
 
 
+def get_player():
+    user_input = ""
+    try:
+        user_input = input("player: name"+ " \n> ")
+    except TypeError:
+        return -1
+    
+    
+    return user_input
+    
 
 def adv_game():
+    player_name = get_player()
+    player = Player(f"{player_name}", room['outside'])
+
+
     while True:
         user_input = get_input()
         if user_input == 'q':
@@ -89,6 +105,8 @@ def adv_game():
 
 
 if __name__ == '__main__':
-    adv_game()
+    # adv_game()
+    name = get_player()
+    print(name)
 
 
