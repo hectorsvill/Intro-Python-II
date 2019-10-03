@@ -52,12 +52,21 @@
 
 user_input_description = "n: north | s: south | e: east | w: west | q: quit"
 
+
+def get_input():
+    user_input = ""
+
+    try:
+        user_input = input(user_input_description + " \n> ")
+    except TypeError:
+        return -1
+    
+    return user_input
+
+
 def adv_game():
     while True:
-        try:
-            user_input = input(user_input_description + " \n> ")
-        except TypeError:
-            continue
+        user_input = get_input()
 
         if user_input == 'q':
             break
