@@ -62,6 +62,22 @@ room['treasure'].s_to = room['narrow']
 user_input_description = "n: north | s: south | e: east | w: west | q: quit"
 
 
+def get_valid_directions(room):
+    valid_directions = ""
+    # print(room.n_to, room.s_to, room.e_to, room.w_to)
+    if room.n_to != None:
+        valid_directions +=  "n"
+
+    if room.s_to != None:
+        valid_directions +=  "s"
+
+    if room.e_to != None:
+        valid_directions +=  "e"
+
+    if room.w_to != None:
+        valid_directions +=  "w"
+    return valid_directions
+
 def get_input():
     user_input = ""
     try:
@@ -84,29 +100,27 @@ def get_player():
 
 def adv_game():
     player_name = get_player()
-    player = Player(f"{player_name}", room['outside'])
+    player = Player(player_name, room['outside'])
 
-
-    while True:
-        user_input = get_input()
-        if user_input == 'q':
-            break
-        elif "nsewq".find(user_input) == -1:
-            print("Error, please try again")
-            continue
-        elif user_input == 'n': 
-            print(user_input)
-        elif user_input == 's':
-            pass
-        elif user_input == 'e':
-            pass
-        elif user_input == 'w':
-            pass
+    print(player.current_room.name)
+    print(get_valid_directions(player.current_room))
+    # while True:
+    #     user_input = get_input()
+    #     if user_input == 'q':
+    #         break
+    #     elif "nsewq".find(user_input) == -1:
+    #         print("Error, please try again")
+    #         continue
+    #     elif user_input == 'n': 
+    #         print(user_input)
+    #     elif user_input == 's':
+    #         pass
+    #     elif user_input == 'e':
+    #         pass
+    #     elif user_input == 'w':
+    #         pass
 
 
 if __name__ == '__main__':
-    # adv_game()
-    name = get_player()
-    print(name)
-
+    adv_game()
 
