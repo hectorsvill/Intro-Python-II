@@ -62,48 +62,65 @@ room['treasure'].s_to = room['narrow']
 user_input_description = "n: north | s: south | e: east | w: west | q: quit"
 
 
-def get_valid_directions(room):
-    valid_directions = ""
-    # print(room.n_to, room.s_to, room.e_to, room.w_to)
-    if room.n_to != None:
-        valid_directions +=  "n"
-
-    if room.s_to != None:
-        valid_directions +=  "s"
-
-    if room.e_to != None:
-        valid_directions +=  "e"
-
-    if room.w_to != None:
-        valid_directions +=  "w"
-    return valid_directions
-
-def get_input():
-    user_input = ""
-    try:
-        user_input = input(user_input_description + " \n> ")
-    except TypeError:
-        return -1
-    return user_input
 
 
+
+# get player name from user input
 def get_player():
     user_input = ""
     try:
-        user_input = input("player: name"+ " \n> ")
+        user_input = input("player: name" + " \n> ")
     except TypeError:
         return -1
     
     
     return user_input
-    
+
+
+# give user valid directions and get user input 
+def get_input(valid_directions):
+    user_input = ""
+    try:
+        user_input = input(valid_directions+ " | q: quit" + "\n> ")
+    except TypeError:
+        return -1
+    return user_input
+
+
+# get valid direction from the room
+def get_valid_directions(room):
+    valid_directions = ""
+
+    if room.n_to != None:
+        valid_directions +=  "n: north"
+
+    if room.s_to != None:
+        valid_directions +=  "s: west"
+
+    if room.e_to != None:
+        valid_directions +=  "e: east"
+
+    if room.w_to != None:
+        valid_directions +=  "w: west"
+
+    return valid_directions
+
+
+# get valid path directions from valid_direction string
+def get_path(valid_directions):
+    for c in valid_directions:
+        print(c)
+
+
 
 def adv_game():
     player_name = get_player()
     player = Player(player_name, room['outside'])
+    current_room = player.current_room
 
-    print(player.current_room.name)
-    print(get_valid_directions(player.current_room))
+    valid_directions = get_valid_directions(current_room)
+    print(valid_directions)
+
     # while True:
     #     user_input = get_input()
     #     if user_input == 'q':
