@@ -12,7 +12,7 @@ class Room:
         self.items = []
 
     def __str__(self):
-        return f"name: {self.name}"
+        return f"{self.name} - {self.description}"
 
     def add_item(self, item):
         self.items.append(item)
