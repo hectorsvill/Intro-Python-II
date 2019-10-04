@@ -98,10 +98,10 @@ def get_valid_directions(room):
         valid_directions +=  "s: south "
 
     if room.e_to != None:
-        valid_directions +=  "e: east | "
+        valid_directions +=  "e: east "
 
     if room.w_to != None:
-        valid_directions +=  "w: west | "
+        valid_directions +=  "w: west "
 
     return valid_directions + " \nq: quit"
 
@@ -130,9 +130,6 @@ def get_path(valid_directions):
         print(c)
 
 def move_to_current_room(player, user_input):
-    print(player.name, user_input)
-    print(player.current_room)
-    
     if user_input == 'n': 
         player.current_room =  player.current_room.n_to 
     elif user_input == 's': 
