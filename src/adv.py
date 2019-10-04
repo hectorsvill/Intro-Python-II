@@ -89,26 +89,22 @@ user_input_description = "n: north | s: south | e: east | w: west | q: quit"
 
 
 
+def get_user_input(output_str):
+    try:
+        user_input = input(output_str + " \n> ")
+        return user_input
+    except TypeError:
+        return None
 
 
 # get player name from user input
 def get_player():
-    user_input = ""
-    try:
-        user_input = input("player: name" + " \n> ")
-    except TypeError:
-        return -1
-    return user_input
+    return get_user_input("Player name: ")
 
 
 # give user valid directions and get user input 
 def get_input(valid_directions):
-    user_input = ""
-    try:
-        user_input = input(valid_directions + "\n> ")
-    except TypeError:
-        return -1
-    return user_input
+    return get_user_input(valid_directions)
 
 
 # get valid direction from the room
@@ -184,14 +180,14 @@ def adv_game():
 
         user_input = get_input(valid_directions)
         
-        if create_room_dir_str(current_room).find(user_input) == -1:
+        if create_room_dir_str(current_room).find(user_input) == None:
             print("Error, please try again")
             continue
         elif user_input == 'q':
             print("Thank you for playing!")
             break
         elif user_input_description == 'p':
-                ()
+            pickup_item_from_room()
         else:
             os.system("clear")
             move_to_current_room(player, user_input)
