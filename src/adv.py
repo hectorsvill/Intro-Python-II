@@ -2,7 +2,7 @@
 import os
 from room import Room
 from player import Player
-
+from item import Item
 
 
 # Declare all the rooms
@@ -43,6 +43,22 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+
+
+# all the items
+items = {
+    "sword" : Item("sword", "This sword will prect you!"),
+    "apple" : Item("apple", "This apple will give you life"),
+    "shield" : Item("shield", "This shield will pretect you"),
+    "water" : Item("water", "This water will give you extra life"),
+    "rope" : Item("rope", "This rope will alow you to climb or decend"),
+    "map" : Item("map", "This map will guide you"),
+    "cross" : Item("cross", "This cross will give you extra pretection"),
+    "fire" : Item("fire", "This fire will pretect you against the dark"),
+}
+
+
+
 
 #
 # Main
@@ -140,13 +156,18 @@ def move_to_current_room(player, user_input):
         player.current_room =  player.current_room.e_to    
 
 
+def get_room_items(room):
+    items_str = ""
+    for item in room.items:
+        items_str +=  item.name + " "
+    return items_str
+
 def adv_game():
     os.system("clear")
     player_name = get_player()
     player = Player(player_name, room['outside'])
 
     while True:
-        
         current_room = player.current_room
         valid_directions = get_valid_directions(current_room)
         print(current_room)
@@ -161,6 +182,7 @@ def adv_game():
         else:
             os.system("clear")
             move_to_current_room(player, user_input)
+            prin(get_room_items(player.current_room))
 
 
 
