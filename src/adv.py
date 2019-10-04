@@ -163,6 +163,10 @@ def move_to_current_room(player, user_input):
     elif user_input == 'e': 
         player.current_room =  player.current_room.e_to    
 
+def pickup_item_from_room():
+    pass
+
+
 def adv_game():
     os.system("clear")
     drop_items_in_room()
@@ -186,6 +190,8 @@ def adv_game():
         elif user_input == 'q':
             print("Thank you for playing!")
             break
+        elif user_input_description == 'p':
+                ()
         else:
             os.system("clear")
             move_to_current_room(player, user_input)
@@ -194,5 +200,5 @@ def adv_game():
 if __name__ == '__main__':
     adv_game()
 
-    
+
 
