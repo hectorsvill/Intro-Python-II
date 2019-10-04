@@ -18,8 +18,8 @@ class Room:
         self.items.append(item)
 
     # turn room items to string 
-    def get_room_items(self, room):
-        room_str = "\titems: \n"
+    def get_room_items(self):
+        room_str = f"\t{self.name} items: \n"
         for i in range(len(self.items)):
             room_str += f"\t[{i}]:\t[{self.items[i].name}] - {self.items[i].description}\n"
         return room_str

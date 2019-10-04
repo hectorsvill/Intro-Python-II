@@ -47,7 +47,7 @@ room['treasure'].s_to = room['narrow']
 
 # all the items
 item = {
-    "sword" : Item("sword", "This sword will prect you!"),
+    "sword" : Item("sword", "This sword will pretect you!"),
     "greenapple" : Item(" green apple", "This green apple will give you life"),
     "redapple" : Item(" red apple", "This green apple will give more life"),
     "shield" : Item("shield", "This shield will pretect you"),
@@ -85,26 +85,13 @@ def drop_items_in_room():
 #
 # If the user enters "q", quit the game.
 
-user_input_description = "n: north | s: south | e: east | w: west | q: quit"
-
-
 
 def get_user_input(output_str):
     try:
         user_input = input(output_str + " \n> ")
-        return user_input
+        return user_input.lower()
     except TypeError:
-        return None
-
-
-# get player name from user input
-def get_player():
-    return get_user_input("Player name: ")
-
-
-# give user valid directions and get user input 
-def get_input(valid_directions):
-    return get_user_input(valid_directions)
+        return ""
 
 
 # get valid direction from the room
@@ -123,7 +110,7 @@ def get_valid_directions(room):
     if room.w_to != None:
         valid_directions +=  "w: west "
 
-    return valid_directions + " \nq: quit"
+    return valid_directions + "\np: pick item\nq: quit"
 
 # create a string from available rooms
 def create_room_dir_str(room):
@@ -141,7 +128,7 @@ def create_room_dir_str(room):
     if room.w_to != None:
         valid_directions +=  "w"
 
-    return valid_directions + "q"
+    return valid_directions + "qp"
 
 
 # get valid path directions from valid_direction string
@@ -159,38 +146,48 @@ def move_to_current_room(player, user_input):
     elif user_input == 'e': 
         player.current_room =  player.current_room.e_to    
 
-def pickup_item_from_room():
-    pass
+def pick_item():
+    return int(get_user_input("Pick 1 Item:"))
+ 
+  
 
 
 def adv_game():
     os.system("clear")
     drop_items_in_room()
-    player_name = get_player()
+    player_name = get_user_input("Player name: ")
     player = Player(player_name, room['outside'])
 
     while True:
         current_room = player.current_room
+        print(current_room,"\n" ,current_room.get_room_items(),"\n" * 2)
+        print(player.get_player_items())
         
-        valid_directions = get_valid_directions(current_room)
+        
+        user_input = get_user_input(get_valid_directions(current_room))
         print(current_room, "\n" * 3)
         
-        room_items = player.current_room.get_room_items(player.current_room)
-        print(room_items, "\n" * 3)
-
-        user_input = get_input(valid_directions)
         
-        if create_room_dir_str(current_room).find(user_input) == None:
-            print("Error, please try again")
-            continue
-        elif user_input == 'q':
+       
+
+        # rooms_key_str = create_room_dir_str(current_room)
+        # print(rooms_key_str)
+        # if rooms_key_str.find(user_input) == -1:
+        #     print("Error, please try again")
+        #     continue
+        if user_input == 'q':
             print("Thank you for playing!")
             break
-        elif user_input_description == 'p':
-            pickup_item_from_room()
+        elif user_input == 'p':
+            i = pick_item()
+            item = current_room.items[i]
+            player.items.append(item)
+            current_room.items.remove(item)
+            print(player.name + " picked up\n" + item)
         else:
-            os.system("clear")
             move_to_current_room(player, user_input)
+
+        os.system("clear")
 
 
 if __name__ == '__main__':

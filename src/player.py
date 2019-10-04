@@ -14,4 +14,8 @@ class Player:
     def add_item(self, item):
         self.items.append(item)
 
-    
+    def get_player_items(self):
+        room_str = f"\t{self.name}'s items: \n"
+        for i in range(len(self.items)):
+            room_str += f"\t[{i}]:\t[{self.items[i].name}] - {self.items[i].description}\n"
+        return room_str
