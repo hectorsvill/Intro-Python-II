@@ -17,6 +17,14 @@ class Room:
     def add_item(self, item):
         self.items.append(item)
 
+    # turn room items to string 
+    def get_room_items(self, room):
+        room_str = "\titems: "
+        for item in self.items:
+            room_str += f"\t[{item.name}] - {item.description}\n"
+        return room_str
+
+
 
 
 # r = Room("name", "description")

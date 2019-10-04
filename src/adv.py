@@ -163,7 +163,7 @@ def move_to_current_room(player, user_input):
     elif user_input == 'e': 
         player.current_room =  player.current_room.e_to    
 
-
+# turn room items to string 
 def get_room_items(room):
     print("\titems: ")
     for item in room.items:
@@ -180,7 +180,8 @@ def adv_game():
         current_room = player.current_room
         valid_directions = get_valid_directions(current_room)
         print(current_room, "\n" * 3)
-        get_room_items(player.current_room)
+        room_items = player.current_room.get_room_items(player.current_room)
+        print(room_items)
         print("\n" * 3)
         user_input = get_input(valid_directions)
         
