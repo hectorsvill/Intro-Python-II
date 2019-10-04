@@ -19,13 +19,14 @@ class Room:
 
     # turn room items to string 
     def get_room_items(self, room):
-        room_str = "\titems: "
-        for item in self.items:
-            room_str += f"\t[{item.name}] - {item.description}\n"
+        room_str = "\titems: \n"
+        for i in range(len(self.items)):
+            room_str += f"\t[{i}]:\t[{self.items[i].name}] - {self.items[i].description}\n"
         return room_str
 
 
-
+    def del_item(self, item):
+        self.items.remove(item)
 
 # r = Room("name", "description")
 

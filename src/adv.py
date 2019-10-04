@@ -163,13 +163,6 @@ def move_to_current_room(player, user_input):
     elif user_input == 'e': 
         player.current_room =  player.current_room.e_to    
 
-# turn room items to string 
-def get_room_items(room):
-    print("\titems: ")
-    for item in room.items:
-        print(f"\t[{item.name}] - {item.description}")
-
-
 def adv_game():
     os.system("clear")
     drop_items_in_room()
@@ -178,11 +171,13 @@ def adv_game():
 
     while True:
         current_room = player.current_room
+        
         valid_directions = get_valid_directions(current_room)
         print(current_room, "\n" * 3)
+        
         room_items = player.current_room.get_room_items(player.current_room)
-        print(room_items)
-        print("\n" * 3)
+        print(room_items, "\n" * 3)
+
         user_input = get_input(valid_directions)
         
         if create_room_dir_str(current_room).find(user_input) == -1:
@@ -194,11 +189,10 @@ def adv_game():
         else:
             os.system("clear")
             move_to_current_room(player, user_input)
-            
-
-
 
 
 if __name__ == '__main__':
     adv_game()
+
+    
 
