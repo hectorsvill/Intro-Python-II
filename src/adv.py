@@ -46,9 +46,10 @@ room['treasure'].s_to = room['narrow']
 
 
 # all the items
-items = {
+item = {
     "sword" : Item("sword", "This sword will prect you!"),
-    "apple" : Item("apple", "This apple will give you life"),
+    "greenapple" : Item(" green apple", "This green apple will give you life"),
+    "redapple" : Item(" red apple", "This green apple will give more life"),
     "shield" : Item("shield", "This shield will pretect you"),
     "water" : Item("water", "This water will give you extra life"),
     "rope" : Item("rope", "This rope will alow you to climb or decend"),
@@ -58,6 +59,13 @@ items = {
 }
 
 
+
+def drop_items_in_room():
+    room['outside'].items =  [item['sword']]
+    room['foyer'].items = [item['redapple'], item['shield']]
+    room['overlook'].items =  [item['shield'], item['greenapple']]
+    room['narrow'].items = [item['sword'], item['rope'], item['cross']]
+    room['treasure'].items = [item['water'], item['map'], item['fire']]
 
 
 #
@@ -157,20 +165,23 @@ def move_to_current_room(player, user_input):
 
 
 def get_room_items(room):
-    items_str = ""
+    print("\titems: ")
     for item in room.items:
-        items_str +=  item.name + " "
-    return items_str
+        print(f"\t[{item.name}] - {item.description}")
+
 
 def adv_game():
     os.system("clear")
+    drop_items_in_room()
     player_name = get_player()
     player = Player(player_name, room['outside'])
 
     while True:
         current_room = player.current_room
         valid_directions = get_valid_directions(current_room)
-        print(current_room)
+        print(current_room, "\n" * 3)
+        get_room_items(player.current_room)
+        print("\n" * 3)
         user_input = get_input(valid_directions)
         
         if create_room_dir_str(current_room).find(user_input) == -1:
@@ -182,7 +193,7 @@ def adv_game():
         else:
             os.system("clear")
             move_to_current_room(player, user_input)
-            prin(get_room_items(player.current_room))
+            
 
 
 
